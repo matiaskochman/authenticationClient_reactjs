@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component,PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { signinAction } from '../../actions/index'
+import * as actions from '../../actions';
 import { Link } from 'react-router';
 
 
@@ -10,6 +10,10 @@ const FIELDS = {
   email:{
     type:'input',
     label:'email'
+  },
+  password:{
+    type:'input',
+    label:'password'
   }
 }
 
@@ -21,10 +25,11 @@ class SignIn extends Component{
 
   handleFormSubmit({email,password}){
     console.log('email:',email + ' password:',password);
+
+    this.props.signInUser({email:email, password:password});
   }
 
   renderField({ input, label, type, meta: { touched, error } }){
-    //const fieldHelper = this.props.fields[field];
 
     return(
       <div className={`form-group ${error && touched && 'has-danger'}`}>
@@ -49,6 +54,7 @@ class SignIn extends Component{
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <Field name="email" component={this.renderField} label="Email" />
         <Field name="password" component={this.renderField} label="Password" />
+        <button action="submit" className="btn btn-primary">SignIn</button>
       </form>
 
     );
@@ -88,4 +94,4 @@ const ComponentWithForm = reduxForm({
   validate
 })(SignIn);
 
-export default connect(null,{ signinAction })(ComponentWithForm);
+export default connect(null,actions)(ComponentWithForm);
