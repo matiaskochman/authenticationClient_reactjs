@@ -27,7 +27,7 @@ class Header extends Component{
         </li>);
         links.push(
           <li key="signup" className="nav-item">
-            <Link to={`/signup`} className="nav-link">SignUp</Link>
+            <Link to={`/signUp`} className="nav-link">SignUp</Link>
           </li>
         );
 
